@@ -121,6 +121,7 @@ void draw(){
    w = int( (width/2) + sqrt( sq(sunRadius) - sq(y - (height/2)) )) - x;
    rect(x, y, w, h);
    
+/*
    // Draw other rectangles to create more missing sections in the sun
    h = 50;
    y = (width/2) + 80;
@@ -133,7 +134,7 @@ void draw(){
    x = int( (width/2) - sqrt( sq(sunRadius) - sq(y - (height/2)) ));
    w = int( (width/2) + sqrt( sq(sunRadius) - sq(y - (height/2)) )) - x;
    rect(x, y, w, h);
-   
+*/
   /*
    * PART IV: Moving the missing sun sections
    *
