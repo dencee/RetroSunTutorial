@@ -1,5 +1,4 @@
 color bgColor = color(31, 0, 48);
-int sunRadius = 300;
 
 // RGB colors
 color[] sunColors = {
@@ -15,16 +14,20 @@ color[] sunColors = {
   color(217, 0, 151)
 };
 
+/*
+ * LOOK AT retro_sun.gif IN THIS FOLDER to see what you will be creating!
+ */
+
+
 void setup(){
   // 1. Set the size of your sketch
-  size(1000, 800);
-
+  
+  
 }
 
 
 void draw(){
   // 2. Draw the bgColor background color
-  background(bgColor);
 
   /*
    * PART I: Drawing the sun
@@ -35,9 +38,6 @@ void draw(){
   // Draw an ellipse for the sun in the center of the window
   // Use fill(sunColors[0]) to make it yellow
   // Use noStroke() to remove the black outline
-  noStroke();
-  fill(sunColors[0]);
-  ellipse(width/2, height/2, 2*sunRadius, 2*sunRadius);
   
   // Do you see a yellow sun like in the 1st image?
   // If not, fix your code before proceeding.
@@ -51,16 +51,13 @@ void draw(){
    */
   
   // Call the loadPixels() method  
-  loadPixels();
   
   // Loop through all the pixels in your window.
   // A pixel is a 1x1 square, so if your window width is 600 and the 
   // height is 400 (600x400), then there are 600 * 400 = 240,000 pixels 
-  for( int i = 0; i < width * height; i++ ){
 
     // We want to change the color of our sun so use an if statement
     // to check if the pixel is the color of the yellow circle. 
-    if( pixels[i] == sunColors[0] ){
       
        // If it's the same color we need to map the pixel to a
        // color in our sunColors[] array (see 2nd gradient image)
@@ -73,22 +70,15 @@ void draw(){
        // Use the map() function to do that:
        // int y = i / width;
        // float step = map(y, sunTopY, sunBottomY, 0, 1);
-       float originY = height/2 - sunRadius;
-       float endY = height/2 + sunRadius;
-       int y = i / width;
-       float step = map(y, originY, endY, 0, 1);
 
        // Call interpolateColor(sunColors, step) and save the color
        // variable that's returned
-       color lc = interpolateColor(sunColors, step);
           
        // Set pixels[i] to the returned color 
-       pixels[i] = lc;
-    }
+
   }
   
   // Call updatePixels() after your loop through all the pixels
-  updatePixels();
   
   /*
    * PART III: Drawing the missing sections at the bottom of the sun
@@ -99,51 +89,69 @@ void draw(){
    */
    
    // Set the fill color to the background color
-   fill(bgColor);
    
    // To draw each rectangle we need to find its x, y, width, height
    // *The y position can be any value within the sun:
    //   y = width / 2;
    // *The height can be any value you choose:
    //   h = 40;
-   // *The x position is the intersection of a line (the y value you picked)
-   //  and the perimeter of the sun (a circle). The general equation is:
-   //   x = sunCenterX - sqrt( sq(sunRadius) - sq(y - sunCenterY) );
-   // * The equation for the width is:
-   //   w = sunCenterX + sqrt( sq(sunRadius) - sq(y - sunCenterY) ) - x;
+   // *The x position can be the center of the sun's x position minus the radius:
+   //   x = sunCenterX - sunRadius
+   // * The width can be 2 times the radius
+   //   w = 2 * sunRadius
    
    // Do you see a section missing from the sun like in the 3rd image?
-   // If so, create 2 more missing sections.
-   int x, y, w, h;
-   h = 40;
-   y = width / 2;
-   x = int( (width/2) - sqrt( sq(sunRadius) - sq(y - (height/2)) ));
-   w = int( (width/2) + sqrt( sq(sunRadius) - sq(y - (height/2)) )) - x;
-   rect(x, y, w, h);
-   
-/*
-   // Draw other rectangles to create more missing sections in the sun
-   h = 50;
-   y = (width/2) + 80;
-   x = int( (width/2) - sqrt( sq(sunRadius) - sq(y - (height/2)) ));
-   w = int( (width/2) + sqrt( sq(sunRadius) - sq(y - (height/2)) )) - x;
-   rect(x, y, w, h);
-   
-   h = 30;
-   y = (width/2) - 60;
-   x = int( (width/2) - sqrt( sq(sunRadius) - sq(y - (height/2)) ));
-   w = int( (width/2) + sqrt( sq(sunRadius) - sq(y - (height/2)) )) - x;
-   rect(x, y, w, h);
-*/
+
+
   /*
    * PART IV: Moving the missing sun sections
    *
    * To move a section upwards each rectangle's y value needs to decrease.
-   * Also, as the rectangles move upwards their height also has to decrease.
-   * Can you figure out how to do that?
-   * What should happen when the rectangle reaches the top?
+   * To make the section get smaller, its height needs to also decrease.
    */
-}
+   
+   // Decrease the y variable of the rectangular section created in part III.
+   // If there isn't a variable declare a float variable OUTSIDE of the draw
+   // function AND initialize it in the setup() function.
+   
+   // Do you see the rectangle moving upwards?
+   // See image 4
+   
+   // Pick a y positon to be the location when the sections stop moving up.
+   // If the rectangle's y positon is above this, move the rectangle's
+   // y position back to the bottom of the sun.
+   
+   // Does the rectangle move back to the bottom?
+   
+   // Decrease the the height of the rectangle as it moves upwards.
+   // Similar to the y positon, a float variable for the height needs to be
+   // created if it doesn't already exist.
+
+   // Adjust the amount to decrease so that it disappears close to the top.
+   
+   // Add code to reset the height of the rectangle when it moves back to
+   // the bottom of the sun.
+   // See image 5
+   
+  /*
+   * PART V: Moving more missing sun sections
+   *
+   * Using a loop to manage moving multiple missing sun sections 
+   */
+   
+   // Figure out how to create the other missing sun sections using the
+   // code you wrote for the 1 missing sun section.
+   // *HINT* Use a loop to repeat parts of the code you've written
+   
+   
+  /*
+   * PART VI: Adding extras
+   *
+   * If you want to make your retro sun look more unique, try adding
+   * reflections and stars.
+   */
+
+
 
 // Placed here so it can be used by all classes
 // Variable step should be between 0 and 1, inclusive
